@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useCustomWebSocket from "../hooks/useSocket";
 import LineChart from "../components/chart/LineChart";
 import CandlestickChart from "../components/chart/CandlestickChart";

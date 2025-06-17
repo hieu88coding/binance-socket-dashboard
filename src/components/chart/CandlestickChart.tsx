@@ -4,9 +4,7 @@ import {
   LinearScale,
   TimeScale,
   Tooltip,
-  Legend,
   type ChartOptions,
-  type ChartData,
 } from "chart.js";
 import {
   CandlestickController,
