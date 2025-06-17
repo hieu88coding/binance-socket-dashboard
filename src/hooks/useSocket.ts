@@ -66,6 +66,8 @@ const useCustomWebSocket = () => {
       throttledUpdate(lastJsonMessage);
     }
   }, [lastJsonMessage, throttledUpdate]);
+  // cần cho throttledUpdate vào trong deps của useEffect để đảm bảo react hiểu đúng (trên lý thuyết thì không cần do throttledUpdate chỉ được khởi tạo 1 lần duy nhất => cho vào useMemo => không thay đổi)
+  // tuy nhiên useEffect không quan tâm hàm đó có dùng useMemo để lưu không => cứ cho vào deps cho chắc.
 
   const send = (message: { type: string; content: string }) => {
     sendJsonMessage(message);
