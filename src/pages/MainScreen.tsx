@@ -1,14 +1,23 @@
 import { useState } from "react";
 import useCustomWebSocket from "../hooks/useSocket";
 import LineChart from "../components/chart/LineChart";
+import CandlestickChart from "../components/chart/CandlestickChart";
+import "./mainScreen.scss";
 const MainScreen = () => {
-  const { chatMessages, send, readyState } = useCustomWebSocket();
-  const label = ["Giá trị"];
+  const { chatMessages, candleData } = useCustomWebSocket();
   return (
-    <div>
-      <h1>WebSocket Binance Dashboard</h1>
-      <div>
-        <LineChart labels={label} dataPoints={chatMessages} />
+    <div className="container">
+      <div className="chart-container">
+        <h1>Nến - USDT ($)</h1>
+        <div>
+          <CandlestickChart dataPoints={candleData} />
+        </div>
+      </div>
+      <div className="chart-container">
+        <h1>Biến động giá - USDT ($)</h1>
+        <div>
+          <LineChart dataPoints={chatMessages} />
+        </div>
       </div>
     </div>
   );

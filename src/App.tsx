@@ -1,9 +1,5 @@
 import MainScreen from "./pages/MainScreen";
 const App = () => {
-  return (
-    <div>
-      <MainScreen />
-    </div>
-  );
+  return <MainScreen />;
 };
 export default App;

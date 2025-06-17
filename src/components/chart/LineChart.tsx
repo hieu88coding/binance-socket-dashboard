@@ -10,6 +10,7 @@ import {
   Legend,
   type ChartOptions,
 } from "chart.js";
+import type { WebsocketMessage } from "../../types/binance";
 
 ChartJS.register(
   CategoryScale,
@@ -21,17 +22,19 @@ ChartJS.register(
 );
 
 type Props = {
-  labels: string[];
-  dataPoints: string[];
+  dataPoints: WebsocketMessage[];
 };
 
-const LineChart = ({ labels, dataPoints }: Props) => {
+const LineChart = ({ dataPoints }: Props) => {
+  const labels = dataPoints.map(
+    (item) => new Date(item.T).toLocaleTimeString() // Hoặc dùng item.a hoặc index
+  );
   const data = {
     labels,
     datasets: [
       {
-        label: "Tổng số giao dịch",
-        data: dataPoints,
+        label: "Giá tiền USDT",
+        data: dataPoints.map((item) => parseFloat(item.p)),
         borderColor: "#4A90E2",
         backgroundColor: "#D4EDFB",
         borderWidth: 2,
@@ -54,25 +57,29 @@ const LineChart = ({ labels, dataPoints }: Props) => {
     },
     scales: {
       y: {
-        beginAtZero: true,
+        // beginAtZero: true,
         ticks: {
           callback: (value) => value,
         },
         title: {
           display: true,
-          text: "Lượng giao dịch",
+          text: "Giá ($)",
         },
       },
-      x: {
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 20,
-        },
-      },
+      // x: {
+      //   ticks: {
+      //     autoSkip: true,
+      //     maxTicksLimit: 20,
+      //   },
+      // },
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <Line data={data} options={options} />
+    </div>
+  );
 };
 
 export default LineChart;
